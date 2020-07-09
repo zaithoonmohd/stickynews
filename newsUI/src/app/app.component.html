@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <span><button mat-button [routerLink]="['./']">StickyNews</button></span>
+  <!--Menu starts here-->
+  <span *ngIf="!(authService.isLoggedIn())">
+    <button mat-button [routerLink]="['./']" class="all-news-tab">All News</button>
+    <button mat-button [routerLink]="['./login']" class="login-tab">Login</button>
+    <button mat-button [routerLink]="['./register']" class="register-tab">Register</button>
+  </span>
+  <span *ngIf="authService.isLoggedIn()">
+    <button mat-button [routerLink]="['./news/allnews']" class="allnews-tab">All News</button>
+    <button mat-button [routerLink]="['./news/watchlist']" class="watchlist-tab">WatchList</button>
+    <button  mat-button [routerLink]="['./news/search']" class="search-tab">Search</button>
+    <!-- <button  mat-button [routerLink]="['./news/update']" class="search-button">Update Profile</button> -->
+    <button mat-buton [routerLink]="['./news/logout']"(click)="Logout()" class="logout-tab" >Logout</button>
+    <span></span>
+</span>
+</mat-toolbar>
+<!-- <button *ngIf="!(this.router.url == '/news/watchlist')" mat-button color="primary" (click)="addNews()" class="addButton">Add to Wishlist</button>
+
+*ngIf="!" -->
+<!--Menu ends here-->
+<router-outlet></router-outlet>
+<!-- <footer class ="footer"><p></p>
+Copyright @ 2020 Zaithoon, All rights reserved
+</footer> -->

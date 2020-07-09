@@ -1,0 +1,23 @@
+image: "java:8-jdk"
+maven-build:
+  artifacts:
+    paths:
+      - target/*.jar
+  image: "maven:3-jdk-8"
+  script: "mvn package -U"
+  stage: build
+maven-test:
+  image: "maven:3-jdk-8"
+  script: "mvn test"
+  stage: test
+services:
+  - "mysql:latest"
+  - "mongo:4.0.4"
+stages:
+  - test
+  - build
+variables:
+  MONGO_UST_URL: mongodb://localhost:27017/mongonews
+  MYSQL_HOST: localhost
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_UST_URL: jdbc:mysql://localhost:3306/newsdb?createDatabaseIfNotExist=true&user=root&password=root

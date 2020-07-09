@@ -1,0 +1,53 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    container_name: news-mysql-container
+    network_mode: host
+    environment:
+      MYSQL_DATABASE: newsdb
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_UST_URL: jdbc:mysql://localhost:3306/newsdb?createDatabaseIfNotExist=true&user=root&password=root&verifyServerCertificate=false&useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true   
+  
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    container_name: news-mongo-container
+    network_mode: host
+    environment:
+      MONGO_UST_URL: mongodb://localhost:27017/newsmongo
+   
+  userservice:
+    image: zaithoon2020/userrepo
+    build: userservice/
+    restart: always
+    network_mode: host
+    container_name: usercontainer
+    depends_on:
+      - mysql
+    ports:
+      - 9096:9096
+  
+  favouriteservice:
+    image: zaithoon2020/favrepo
+    build: favouriteservice/
+    restart: always
+    network_mode: host
+    container_name: favcontainer
+    depends_on:
+      - mongo
+    ports:
+      - 8088:8088
+  
+  newsui:
+    image: zaithoon2020/angurepo
+    build: newsUI/
+    restart: always
+    network_mode: host
+    container_name: angucontainer
+    ports:
+      - 4200:4200
