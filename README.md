@@ -1,4 +1,4 @@
-# NewsApp - A Case Study
+# NewsApp
 
 ## Problem Statement
 
