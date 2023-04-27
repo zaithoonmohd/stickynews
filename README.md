@@ -64,3 +64,4 @@ Build a system to search for news article, open the article and add an article t
 - Update the docker-compose
 
 ### Demonstrate the entire application
+The application can be build and run using maven 
